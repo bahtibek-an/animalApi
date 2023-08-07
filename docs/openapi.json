@@ -1,0 +1,289 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Animal API",
+      "version": "v1"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000"
+      }
+    ],
+    "tags": [
+      {
+        "name": "Animal",
+        "description": ""
+      },
+      {
+        "name": "User",
+        "description": ""
+      }
+    ],
+    "paths": {
+      "/api/animals/": {
+        "get": {
+          "summary": "Return all animals",
+          "tags": [
+            "Animal"
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Animal"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Create animal",
+          "tags": [
+            "Animal"
+          ],
+          "security": [
+            {
+                "Authorization": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Animal"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Animal"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update animal",
+          "tags": [
+            "Animal"
+          ],
+          "security": [
+            {
+                "Authorization": []
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Animal"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Animal"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/animals/{id}": {
+        "get": {
+          "summary": "Returns animal by id",
+          "tags": [
+            "Animal"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "ID parameter",
+              "schema": {
+                "type": "string",
+                "example": "1"
+              }
+            }
+          ],
+          "description": "Animal Id",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Animal"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete animal by id only for authenticated user",
+          "tags": [
+            "Animal"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "description": "Animal Id",
+              "schema": {
+                "type": "string",
+                "example": "1"
+              }
+            }
+          ],
+          "description": "",
+          "responses": {
+            "204": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/api/user/login": {
+        "post": {
+          "summary": "Login",
+          "tags": [
+            "User"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "email": "string",
+                  "password": "string"
+                },
+                "example": {
+                  "email": "test@mail.com",
+                  "password": "test"
+                } 
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "token": "string"
+                  },
+                  "example": {
+                    "token": "" 
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/user/registration": {
+        "post": {
+          "summary": "Registration",
+          "tags": [
+            "User"
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "email": "string",
+                  "password": "string"
+                },
+                "example": {
+                  "email": "test@mail.com",
+                  "password": "test"
+                } 
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "OK",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "token": "string"
+                  },
+                  "example": {
+                    "token": "" 
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+          "Authorization": {
+              "type": "http",
+              "scheme": "bearer",
+              "bearerFormat": "JWT",
+              "value": "Bearer <JWT token here>"
+          }
+      },
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+                "type": "string"
+            }
+          }
+        },
+        "Animal": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                  "type": "string"
+              }
+            }
+        }
+      }
+    },
+    "security": [{
+      "bearerAuth": []
+    }]
+  }

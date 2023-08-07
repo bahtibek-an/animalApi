@@ -1,0 +1,45 @@
+type User {
+    id: ID
+    email: String
+    token: String
+}
+
+input UserInput {
+    id: ID
+    email: String!
+    password: String!
+}
+
+type Query {
+    getAllUsers: [User]
+    getUser(id: ID): User
+}
+
+type Mutation {
+    registration(input: UserInput): User
+    login(input: UserInput): User
+}
+
+
+type Animal{
+    id: ID
+    name: String
+    description: String
+}
+
+input AnimalInput {
+    id: ID
+    name: String!
+    description: String!
+}
+
+type Query {
+    getAllAnimals(limit: Int, offset: Int): [Animal]
+    getAnimal(id: ID): Animal
+}
+
+type Mutation {
+    createAnimal(input: AnimalInput): Animal
+    editAnimal(id: ID, name: String, description: String): Animal
+    deleteAnimal(id: ID): Animal
+}
